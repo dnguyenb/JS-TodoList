@@ -1,23 +1,34 @@
-<!DOCTYPE html>
-<html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>TodoList</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-		/>
-		<script src="../src/app.js" type="module" defer></script>
-	</head>
-	<body>
-		<h1>Todo List - exercice JS</h1>
-		<section class="container pt-5" id="todolist">
-			<!-- <form class="d-flex pb-4">
+/** Définition d'une "todo" :
+ * @typedef {object} Todo
+ * @property {number} id
+ * @property {string} title
+ * @property {boolean} completed
+ */
+
+export class TodoList {
+	// par défaut l'élément #todos sera un tableau vide :
+    /**
+     * @type {Todo []}
+     */
+    #todos = [];
+    
+    /**
+     * 
+     * @param {Todo []} todos 
+     */
+
+	constructor(todos) {
+		// initialisation des propriétés :
+
+		this.#todos = todos;
+    }
+
+    /**
+     * 
+     * @param {HTMLElement} element 
+     */
+    appendTo(element) {
+        element.innerHTML = `<form class="d-flex pb-4">
 				<input
 					required=""
 					class="form-control"
@@ -54,7 +65,7 @@
 				</div>
 
 				<ul class="list-group">
-					<li class="todo list-group-item d-flex align-items-center">
+					<!-- <li class="todo list-group-item d-flex align-items-center">
 						<input class="form-check-input" type="checkbox" id="todo-1" />
 						<label class="ms-2 form-check-label" for="todo-1">
 							Tâche à faire 2
@@ -62,10 +73,8 @@
 						<label class="ms-auto btn btn-danger btn-sm">
 							<i class="bi-trash"> </i>
 						</label>
-					</li>
-					
+					</li> -->
 				</ul>
-			</main> -->
-		</section>
-	</body>
-</html>
+			</main>`;
+    }
+}
