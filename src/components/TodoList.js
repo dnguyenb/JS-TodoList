@@ -113,6 +113,8 @@ class TodoListItem {
 		li.append(label);
 		li.append(button);
 
+		button.addEventListener('click', (e) => this.remove(e));
+
 		this.#element = li; // permet de sauvegarder l'élément "li" dans "this"
 	}
 
@@ -121,5 +123,14 @@ class TodoListItem {
 	 */
 	appendTo(element) {
 		element.append(this.#element);
+	}
+
+	/**
+	 *
+	 * @param {PointerEvent} e // car évènement de type "click"
+	 */
+	remove(e) {
+		e.preventDefault();
+		this.#element.remove();
 	}
 }
