@@ -92,9 +92,9 @@ export class TodoList {
 	 */
 	onSubmit(e) {
 		e.preventDefault(); // pour ne pas envoyer le formulaire tout de suite.
-
+		const form = e.currentTarget
 		// on récupère le "title" du champs :
-		const title = new FormData(e.currentTarget).get('title').toString().trim(); // toString() pour s'assurer d'avoir une chaine de caractère et trim() pour retirer les espaces en début et fin.
+		const title = new FormData(form).get('title').toString().trim(); // toString() pour s'assurer d'avoir une chaine de caractère et trim() pour retirer les espaces en début et fin.
 		console.log(title);
 		// est-ce que le titre n'est pas vide ?
 		if (title === '') {
@@ -111,6 +111,7 @@ export class TodoList {
 		const item = new TodoListItem(todo);
 		// rajout de cet item à la liste d'items :
 		item.prependTo(this.#listElement);
+		form.reset()
 	}
 }
 
