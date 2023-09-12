@@ -8,11 +8,17 @@ import { createElement } from '../functions/dom.js';
  */
 
 export class TodoList {
-	// par défaut l'élément #todos sera un tableau vide :
+	// création des variables #todos et #listElement qui seront par défaut des tableaux vides :
+
 	/**
 	 * @type {Todo []}
 	 */
 	#todos = [];
+
+	/**
+	 * @type {HTMLElement}
+	 */
+	#listElement = [];
 
 	/**
 	 *
@@ -70,13 +76,41 @@ export class TodoList {
 				</ul>
 			</main>`;
 		// récupère la liste 'ul' :
-		const list = element.querySelector('.list-group');
+		this.#listElement = element.querySelector('.list-group');
 
 		/* boucle pour récupérer les "todos" que l'on rattache ensuite à la liste */
 		for (let todo of this.#todos) {
 			const t = new TodoListItem(todo);
-			t.appendTo(list);
+			t.prependTo(this.#listElement);
 		}
+		element
+			.querySelector('form')
+			.addEventListener('submit', (e) => this.onSubmit(e));
+	}
+	/**
+	 * @param {SubmitEvent} e
+	 */
+	onSubmit(e) {
+		e.preventDefault(); // pour ne pas envoyer le formulaire tout de suite.
+
+		// on récupère le "title" du champs :
+		const title = new FormData(e.currentTarget).get('title').toString().trim(); // toString() pour s'assurer d'avoir une chaine de caractère et trim() pour retirer les espaces en début et fin.
+		console.log(title);
+		// est-ce que le titre n'est pas vide ?
+		if (title === '') {
+			return; // return ne retourne rien, il ne se passe rien.
+		}
+
+		// création de l'objet todo :
+		const todo = {
+			id: Date.now(), // crée une tâche avec un timestamp
+			title,
+			completed: false, // par défaut la tâche n'est complétée
+		};
+		// création d'un nouveau TodoListItem :
+		const item = new TodoListItem(todo);
+		// rajout de cet item à la liste d'items :
+		item.prependTo(this.#listElement);
 	}
 }
 
@@ -121,8 +155,8 @@ class TodoListItem {
 	/**
 	 * @param {HTMLElement} element
 	 */
-	appendTo(element) {
-		element.append(this.#element);
+	prependTo(element) {
+		element.prepend(this.#element);
 	}
 
 	/**
