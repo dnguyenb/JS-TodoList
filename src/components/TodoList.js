@@ -131,6 +131,19 @@ export class TodoList {
 			.classList.remove('active');
 		// ajoute la classe active quand on clique sur le filtre :
 		e.currentTarget.classList.add('active');
+		if (filter === 'todo') {
+			// masquer les tâches "completed" :
+			this.#listElement.classList.add('hide-completed');
+			this.#listElement.classList.remove('hide-todo');
+		} else if (filter === 'done') {
+			// masquer les tâches "todo" :
+			this.#listElement.classList.add('hide-todo');
+			this.#listElement.classList.remove('hide-completed');
+		} else {
+			// on ne veut masquer aucune classe :
+			this.#listElement.classList.remove('hide-todo');
+			this.#listElement.classList.remove('hide-completed');
+		}
 	}
 }
 
